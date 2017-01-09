@@ -1,0 +1,15 @@
+version: '2'
+services:
+  git:
+    build:
+      context: git
+      dockerfile: Dockerfile
+    ports:
+    - "8081:8081"
+
+#  exporter:
+#    build:
+#      context: exporter
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - git

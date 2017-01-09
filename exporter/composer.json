@@ -1,8 +1,9 @@
 {
     "name": "shadi/exporter",
     "require": {
-        "shadiakiki1986/ffa-php-pdo": "^0.0.1",
-        "shadiakiki1986/git-rest-api-client": "*"
+        "shadiakiki1986/git-rest-api-client": "*",
+        "ext-yaml": "*",
+        "symfony/console": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
@@ -13,5 +14,25 @@
             "name": "Shadi Akiki",
             "email": "shadiakiki1986@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+      "psr-4": {
+        "PdoGit\\": "src"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "PdoGit\\": "test"
+      }
+    },
+    "bin": [
+      "bin/pdo-git"
+    ],
+    "scripts": {
+      "test": [
+        "parallel-lint . --exclude vendor",
+        "phpunit --stderr --verbose"
+      ]
+    }
+
 }
