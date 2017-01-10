@@ -2,7 +2,7 @@
 
 namespace PdoGit;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase {
+class FactoryMockedTest extends \PHPUnit_Framework_TestCase {
 
   public function testPdo() {
     $pdoWrap = $this->getMockBuilder('\PdoGit\PdoWrap')

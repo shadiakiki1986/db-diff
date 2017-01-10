@@ -2,22 +2,10 @@
 
 namespace PdoGit\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Export extends Command {
-
-    public function __construct(\PdoGit\Factory $factory=null)
-    {
-      if(is_null($factory)) {
-        $factory = new \PdoGit\Factory();
-      }
-
-      $this->factory = $factory;
-
-      parent::__construct();
-    }
 
     protected function configure()
     {

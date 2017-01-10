@@ -105,11 +105,11 @@
         },
         {
             "name": "shadiakiki1986/git-rest-api-client",
-            "version": "0.0.13.4",
+            "version": "0.0.13.5",
             "dist": {
                 "type": "path",
                 "url": "../../git-rest-api-client-php",
-                "reference": "66a33d03a410698311cfde5fc99661301fea1833",
+                "reference": "f657b81e61360f7a50acca0b75b93615c916abe9",
                 "shasum": null
             },
             "require": {

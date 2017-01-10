@@ -40,4 +40,21 @@ class Factory {
     }
   }
 
+  public function deepDiff() {
+    $repo = $this->repo();
+    $ge = new DeepDiffFactory($repo);
+
+    // get history of commits
+    $commits = $ge->commits();
+
+    // get sha1 of commit to diff by
+    $today = \DateTime::createFromFormat('!Y-m-d',date('Y-m-d'));
+    $sha1 = $ge->parentOfFirstCommitToday($commits,$today);
+
+    // get diff
+    $difference = $ge->diff($sha1);
+
+    return new DeepDiffObject($difference);
+  }
+
 }

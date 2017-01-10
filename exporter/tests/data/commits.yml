@@ -1,0 +1,24 @@
+---
+- refs:
+  - HEAD -> refs/heads/master
+  sha1: f4c0d0433b2557c1740ee973df0f73eeec6aaf53
+  parents:
+  - 50bf503b16553f7c71a090aa6de79974a6cf1fe3
+  authorName: Shadi Akiki
+  authorEmail: shadiakiki1986@gmail.com
+  authorDate: Tue Jan 10 16:00:57 2017 +0200
+  committerName: Shadi Akiki
+  committerEmail: shadiakiki1986@gmail.com
+  commitDate: 2017-01-10T16:00:57.000000+02:00
+  message: second commit
+- refs: []
+  sha1: 50bf503b16553f7c71a090aa6de79974a6cf1fe3
+  parents: []
+  authorName: Shadi Akiki
+  authorEmail: shadiakiki1986@gmail.com
+  authorDate: Tue Jan 10 16:00:57 2017 +0200
+  committerName: Shadi Akiki
+  committerEmail: shadiakiki1986@gmail.com
+  commitDate: 2017-01-10T15:00:57.000000+02:00
+  message: first commit
+...
