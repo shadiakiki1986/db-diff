@@ -1,0 +1,15 @@
+<table>
+  <caption>New</caption>
+  <tr>
+    <th>Security</th>
+    <th>Name</th>
+    <th>Provider code</th>
+  </tr>
+  {% foreach new as dif %}
+  <tr>
+    <td>dif.path[0]</td>
+    <td>dif.lhs['name']</td>
+    <td>dif.lhs['TIT_REU_COD']</td>
+  </tr>
+  {% endforeach %}
+</table>

@@ -9,7 +9,8 @@
     "require": {
         "shadiakiki1986/git-rest-api-client": "*",
         "ext-yaml": "*",
-        "symfony/console": "^3.2"
+        "symfony/console": "^3.2",
+        "twig/twig": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",

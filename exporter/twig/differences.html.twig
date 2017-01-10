@@ -1,0 +1,20 @@
+Diff TITRE {{d1}} .. {{d2}}
+
+{% if edited %}
+  {% include 'edited.html.twig' %}
+{% else %}
+  No edited securities
+{% endif %}
+
+{% if new %}
+  {% include 'new.html.twig' %}
+{% else %}
+  No new securities
+{% endif %}
+
+{% if deleted %}
+  {% include 'deleted.html.twig' %}
+{% else %}
+  No deleted securities
+{% endif %}
+

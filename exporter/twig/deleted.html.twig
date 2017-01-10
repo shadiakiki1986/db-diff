@@ -1,0 +1,13 @@
+<table>
+  <caption>New</caption>
+  <tr>
+    <th>Security</th>
+    <th>Name</th>
+  </tr>
+  {% foreach deleted as dif %}
+  <tr>
+    <td>dif.path[0]</td>
+    <td>dif.lhs['name']</td>
+  </tr>
+  {% endforeach %}
+</table>
