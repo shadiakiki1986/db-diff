@@ -74,13 +74,13 @@ class DeepDiffFactory {
   // sha1 - output of $this->parentOf...
   public function diff(string $sha1) {
     $difference = $this->repo->diff('TITRE.yml',$sha1);
-    $difference = json_decode($difference,true);
+    $differences = json_decode($difference,true);
 
-    if(is_null($difference)) {
+    if(is_null($differences)) {
       throw new \Exception("git diff did not return json.. did you forget to run git-rest-api from the ffa-database-diff/git dockerfile?");
     }
 
-    return($difference);
+    return($differences);
   }
 
 }

@@ -1,0 +1,8 @@
+---
+- kind: E
+  path:
+  - tit1
+  - field11
+  lhs: val11 double prime
+  rhs: val11
+...

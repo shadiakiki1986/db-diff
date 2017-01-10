@@ -52,9 +52,9 @@ class Factory {
     $sha1 = $ge->parentOfFirstCommitToday($commits,$today);
 
     // get diff
-    $difference = $ge->diff($sha1);
+    $differences = $ge->diff($sha1);
 
-    return new DeepDiffObject($difference);
+    return new DeepDiffObject($differences);
   }
 
 }

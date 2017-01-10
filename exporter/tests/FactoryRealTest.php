@@ -30,11 +30,20 @@ class FactoryRealTest extends\PHPUnit_Framework_TestCase
     self::$repo->postCommit('third commit');
   }
 
+  static public function tearDownAfterClass() {
+    self::$repo->deleteAll();
+  }
+
   public function testDeepDiff() {
     $fac = new Factory();
     $ddo = $fac->deepDiff();
     $this->assertInstanceOf(\PdoGit\DeepDiffObject::class,$ddo);
-    $this->assertEquals([],$ddo->differences);
+
+    $expFn = __DIR__.'/data/differences.yml';
+    # \yaml_emit_file($expFn,$ddo->differences);
+    $expVal = \yaml_parse_file($expFn);
+
+    $this->assertEquals($expVal,$ddo->differences);
   }
 
 }
