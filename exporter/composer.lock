@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "462626bb43ddab662a0f749c71bf1b6b",
+    "content-hash": "e32f9dc92e00ad17c04ab72b4580d080",
     "packages": [
         {
             "name": "nategood/httpful",
@@ -105,17 +105,12 @@
         },
         {
             "name": "shadiakiki1986/git-rest-api-client",
-            "version": "0.0.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shadiakiki1986/git-rest-api-client-php.git",
-                "reference": "011e0adedcebe1c062220c1ce9154e14b7596126"
-            },
+            "version": "0.0.13.4",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shadiakiki1986/git-rest-api-client-php/zipball/011e0adedcebe1c062220c1ce9154e14b7596126",
-                "reference": "011e0adedcebe1c062220c1ce9154e14b7596126",
-                "shasum": ""
+                "type": "path",
+                "url": "../../git-rest-api-client-php",
+                "reference": "66a33d03a410698311cfde5fc99661301fea1833",
+                "shasum": null
             },
             "require": {
                 "nategood/httpful": "^0.2.20",
@@ -131,7 +126,16 @@
                     "GitRestApi\\": "src/GitRestApi"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "GitRestApi\\": "tests/GitRestApi"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -148,8 +152,7 @@
                 "client",
                 "git",
                 "rest"
-            ],
-            "time": "2017-01-09T13:41:45+00:00"
+            ]
         },
         {
             "name": "symfony/console",

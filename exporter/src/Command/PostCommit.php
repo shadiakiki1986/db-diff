@@ -32,7 +32,7 @@ class PostCommit extends Command {
       $repo = $factory->repo($git);
 
       // get diff and send result by email (this is parallel to the UI)
-      $commits = $repo->commits();
+      $commits = $repo->log();
       $head_1=array_shift($commits);
       $head_2=array_shift($commits);
       $difference = $repo->diff($head_1,$head_2);

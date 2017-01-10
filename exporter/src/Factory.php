@@ -4,7 +4,13 @@ namespace PdoGit;
 
 class Factory {
 
-  public function repo(\GitRestApi\Client $git) {
+  public function repo(\GitRestApi\Client $git=null) {
+
+    if(is_null($git)) {
+      $grapiUri='http://localhost:8081';
+      $git = new \GitRestApi\Client($grapiUri);
+    }
+
     // prepare git access
     $GIT_NAME='MfDbVersioned';
     $repo = $git->get($GIT_NAME);
@@ -15,7 +21,9 @@ class Factory {
     return $repo;
   }
 
-  public function pdo(string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap) {
+  public function pdo(string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap=null) {
+
+    if(is_null($pdoWrap)) $pdoWrap=new PdoWrap();
 
     // iterate over databases in odbc
     $iniContents = parse_ini_file($iniFile,true);
@@ -30,10 +38,6 @@ class Factory {
 
       yield $dsn=>['pdo'=>$pdo,'odbc'=>$details];
     }
-  }
-
-  public function pdoCore(string $dsn, string $UID, string $PWD) {
-    return new \PDO("odbc:$dsn",$UID,$PWD);
   }
 
 }

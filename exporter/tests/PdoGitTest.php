@@ -17,10 +17,6 @@ class PdoGitTest extends \PHPUnit_Framework_TestCase {
     $repo = $this->getMockBuilder('\GitRestApi\Repository')
                  ->disableOriginalConstructor() 
                  ->getMock();
-#    $repo->method('put')
-#        ->willReturn(null);
-#    $repo->method('commit')
-#        ->willReturn(null);
 
     $pg = new PdoGit($pdo,$repo);
     $pg->export('table','prefix');

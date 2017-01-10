@@ -8,6 +8,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Export extends Command {
 
+    public function __construct(\PdoGit\Factory $factory=null)
+    {
+      if(is_null($factory)) {
+        $factory = new \PdoGit\Factory();
+      }
+
+      $this->factory = $factory;
+
+      parent::__construct();
+    }
 
     protected function configure()
     {
@@ -26,14 +36,9 @@ class Export extends Command {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $iniFile = '/etc/odbc.ini';
-      $grapiUri = 'http://localhost:8081';
-      $git = new \GitRestApi\Client($grapiUri);
+      $repo = $this->factory->repo();
 
-      $factory = new \PdoGit\Factory();
-      $repo = $factory->repo($git);
-
-      foreach($factory->pdo($iniFile) as $dsn=>$obj) {
+      foreach($this->factory->pdo() as $dsn=>$obj) {
         $obj['pdo']->query("use ".$obj['odbc']['dbname'].";");
         $pg = new \PdoGit\PdoGit($obj['pdo'],$repo);
         $pg->export('TITRE',$dsn);

@@ -1,5 +1,11 @@
 {
     "name": "shadi/exporter",
+    "repositories": [
+      {
+        "url": "../../git-rest-api-client-php",
+        "type": "path"
+      }
+    ],
     "require": {
         "shadiakiki1986/git-rest-api-client": "*",
         "ext-yaml": "*",

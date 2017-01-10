@@ -13,6 +13,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase {
 
     $fac = new Factory();
     $obj = $fac->pdo(__DIR__.'/odbc.ini',$pdoWrap);
+
+    // unwrap the object returned
     $obj = iterator_to_array($obj);
     $obj=array_pop($obj);
     $this->assertInstanceOf(\PDO::class,$obj['pdo']);
