@@ -73,14 +73,18 @@ class DeepDiffFactory {
 
   // sha1 - output of $this->parentOf...
   public function diff(string $sha1) {
-    $difference = $this->repo->diff('TITRE.yml',$sha1);
-    $differences = json_decode($difference,true);
+    $diffS = $this->repo->diff('MarketflowAcc/TITRE.yml',$sha1);
+    $diffA = json_decode($diffS,true);
 
-    if(is_null($differences)) {
-      throw new \Exception("git diff did not return json.. did you forget to run git-rest-api from the ffa-database-diff/git dockerfile?");
+    if(is_null($diffA)) {
+      throw new \Exception(
+        $diffS
+        .PHP_EOL
+        ."git diff did not return json.. did you forget to run git-rest-api from the ffa-database-diff/git dockerfile?"
+      );
     }
 
-    return($differences);
+    return($diffA);
   }
 
 }

@@ -8,5 +8,5 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 $application->add(new \PdoGit\Command\Export());
 $application->add(new \PdoGit\Command\PostCommit());
+$application->add(new \PdoGit\Command\Maintenance());
 $application->run();
-

@@ -21,15 +21,23 @@ class Factory {
     return $repo;
   }
 
-  public function pdo(string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap=null) {
+  // dsn: array of strings of DSN names in /etc/odbc.ini
+  public function pdo(array $dsn = null, string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap=null) {
 
     if(is_null($pdoWrap)) $pdoWrap=new PdoWrap();
 
     // iterate over databases in odbc
     $iniContents = parse_ini_file($iniFile,true);
 
+    if(!is_null($dsn)) {
+      $iniContents = array_intersect_key($iniContents,array_flip($dsn));
+    }
+
     # $dsn = 'MarketflowAcc';
     foreach($iniContents as $dsn=>$details) {
+      if(!array_key_exists('UID',$details)) {
+        throw new \Exception("Missing UID from $dsn in ".$iniFile);
+      }
 
       $pdo = $pdoWrap->get($dsn,$details['UID'],$details['PWD']);
 

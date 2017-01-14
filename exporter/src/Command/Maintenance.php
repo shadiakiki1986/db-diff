@@ -6,27 +6,27 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
-class Export extends Command {
+class Maintenance extends Command {
 
     protected function configure()
     {
       $this
           // the name of the command (the part after "bin/console")
-          ->setName('export')
+          ->setName('maintenance')
 
           // the short description shown while running "php bin/console list"
-          ->setDescription('Export a sql server table to git')
+          ->setDescription('Maintenance on git')
 
           // the full command description shown when running the command with
           // the "--help" option
-          ->setHelp("Export a sql server table to git")
+          ->setHelp("Maintenance on git")
       ;
 
       $this->addOption(
-          'dsn',
-          'd',
+          'action',
+          'a',
           InputOption::VALUE_REQUIRED,
-          'Name of dsn in /etc/odbc.ini to export'
+          'Action: deleteAll'
       );
 
     }
@@ -35,17 +35,10 @@ class Export extends Command {
     {
       $repo = $this->factory->repo();
 
-      $subset = $input->getOption('dsn');
-      $subset = explode(',',$subset);
-
-      foreach($this->factory->pdo($subset) as $dsn=>$obj) {
-        if(!array_key_exists('dbname',$obj['odbc'])) {
-          throw new \Exception("Missing field dbname from ".$dsn);
-        }
-
-        $obj['pdo']->query("use ".$obj['odbc']['dbname'].";");
-        $pg = new \PdoGit\PdoGit($obj['pdo'],$repo);
-        $pg->export('TITRE',$dsn);
+      $action = $input->getOption('action');
+      if($action=='deleteAll') {
+        $repo->deleteAll();
+        $output->writeLn("Ran delete all");
       }
     }
 
