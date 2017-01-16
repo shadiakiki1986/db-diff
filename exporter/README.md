@@ -11,7 +11,7 @@ Against mysql odbc entry
 Against SQL server odbc entry
 ```bash
 ./bin/pdo-git export MarketflowAcc Marketflow..TITRE TIT_COD
-./bin/pdo-git export MarketflowAccDb MkfFFADubai..TITRE TIT_COD
+./bin/pdo-git export MarketflowAccDB MkfFFADubai..TITRE TIT_COD
 ./bin/pdo-git post-commit MarketflowAcc Marketflow..TITRE --format console --columns src/columns/ffa-titre.yml
 ```
 
