@@ -18,8 +18,21 @@ class DeepDiffObject {
         return $entry['kind']==$kind;
       }
     );
-    $out = array_column($out,'item');
-    $out = array_column($out,'rhs');
+
+    if($kind=='A') {
+      $out = array_column($out,'item');
+      $out = array_column($out,'rhs');
+      array_walk(
+        $out,
+        function(&$row) {
+          $row = array_intersect_key(
+            $row,
+            array_flip(['TIT_COD','TIT_NOM','TIT_REU_COD'])
+          );
+        }
+      );
+    }
+
     return $out;
   }
 

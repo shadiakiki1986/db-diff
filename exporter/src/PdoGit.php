@@ -10,12 +10,12 @@ class PdoGit {
   }
 
   public function export(string $dsn, string $table) {
-    $result = $this->pdo->query("select * from ".$table);
-    if(!$result) {
+    $stmt = $this->pdo->query("select top 7 TIT_COD,TIT_NOM from ".$table,\PDO::FETCH_ASSOC);
+    if(!$stmt) {
       throw new \Exception("Exception from PDO query");
     }
 
-    $result = iterator_to_array($result);
+    $result = $stmt->fetchAll();
     if(!$result) {
       throw new \Exception("No data returned from PDO query");
     }

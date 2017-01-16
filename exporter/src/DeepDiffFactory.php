@@ -32,10 +32,15 @@ class DeepDiffFactory {
       throw new \Exception("No commits in history");
     }
 
+    $commits=array_combine(
+      array_column($commits,'sha1'),
+      $commits
+    );
     $sha1A=array_combine(
       array_column($commits,'sha1'),
       array_column($commits,'commitDate')
     );
+
     $sha1A = array_filter(
       $sha1A,
       function($entry) use($today) {
@@ -49,7 +54,7 @@ class DeepDiffFactory {
 
     asort($sha1A);
     $sha1F = array_keys($sha1A);
-    $sha1F=array_pop($sha1F);
+    $sha1F=array_shift($sha1F);
     $sha1Y=$commits[$sha1F]['parents'];
 
     // if more than one parent

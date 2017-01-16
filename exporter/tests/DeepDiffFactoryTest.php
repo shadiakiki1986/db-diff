@@ -27,7 +27,7 @@ class DeepDiffFactoryTest extends\PHPUnit_Framework_TestCase
 
     $today = \DateTime::createFromFormat('!Y-m-d','2017-01-10');
 
-    $ge = new DeepDiffFactory($repo);
+    $ge = new DeepDiffFactory($repo,'dsn','table');
     $actual = $ge->parentOfFirstCommitToday($commits,$today);
     $expected = '50bf503b16553f7c71a090aa6de79974a6cf1fe3';
     $this->assertEquals($expected,$actual);
