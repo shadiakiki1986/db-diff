@@ -7,7 +7,10 @@ class Factory {
   public function repo(\GitRestApi\Client $git=null) {
 
     if(is_null($git)) {
-      $grapiUri='http://localhost:8081';
+      $grapiUri = getenv('DBDIFF_GRAPI_HOST');
+      if(!$grapiUri) {
+        throw new \Exception('Missing env var DBDIFF_GRAPI_HOST, e.g. export DBDIFF_GRAPI_HOST="http://localhost:8081"');
+      }
       $git = new \GitRestApi\Client($grapiUri);
     }
 
@@ -22,16 +25,13 @@ class Factory {
   }
 
   // dsn: array of strings of DSN names in /etc/odbc.ini
-  public function pdo(array $dsn = null, string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap=null) {
+  public function pdo(array $dsn, string $iniFile = '/etc/odbc.ini', PdoWrap $pdoWrap=null) {
 
     if(is_null($pdoWrap)) $pdoWrap=new PdoWrap();
 
     // iterate over databases in odbc
     $iniContents = parse_ini_file($iniFile,true);
-
-    if(!is_null($dsn)) {
-      $iniContents = array_intersect_key($iniContents,array_flip($dsn));
-    }
+    $iniContents = array_intersect_key($iniContents,array_flip($dsn));
 
     # $dsn = 'MarketflowAcc';
     foreach($iniContents as $dsn=>$details) {
@@ -48,21 +48,31 @@ class Factory {
     }
   }
 
-  public function deepDiff() {
+  public function deepDiff(string $dsn, string $table) {
     $repo = $this->repo();
-    $ge = new DeepDiffFactory($repo);
+    $ge = new DeepDiffFactory($repo,$dsn,$table);
 
     // get history of commits
     $commits = $ge->commits();
 
+    // key by sha1
+    $commits = array_combine(
+      array_column($commits,'sha1'),
+      $commits
+    );
+
     // get sha1 of commit to diff by
-    $today = \DateTime::createFromFormat('!Y-m-d',date('Y-m-d'));
+    $today = new \DateTime();
     $sha1 = $ge->parentOfFirstCommitToday($commits,$today);
 
     // get diff
     $differences = $ge->diff($sha1);
 
-    return new DeepDiffObject($differences);
+    return new DeepDiffObject(
+      $differences,
+      $commits[$sha1]['commitDate'],
+      $today
+    );
   }
 
 }

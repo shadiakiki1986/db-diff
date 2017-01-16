@@ -4,9 +4,10 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\Table;
 
 // get diff and send result by email (this is parallel to the UI)
-class PostCommit extends Command {
+class PostCommit extends MyCommand {
 
     protected function configure()
     {
@@ -21,12 +22,22 @@ class PostCommit extends Command {
           // the "--help" option
           ->setHelp("Email a user with the diff of a table between two dates")
       ;
+      parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $ddo = $this->factory->deepDiff();
-      #var_dump($ddo->html());
+      $ddo = $this->factory->deepDiff($input->getArgument('dsn'),$input->getArgument('table'));
+
+      var_dump($ddo->split('A'));
+
+      var_dump($ddo->html());
+
+      if(false) {
+        $table = new Table($output);
+        $table->setRows($ddo->split('A'));
+        $table->render();
+      }
     }
 
 }

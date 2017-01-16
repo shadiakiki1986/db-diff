@@ -5,8 +5,10 @@ namespace PdoGit;
 // get diff and prepare result for email (this is parallel to the UI)
 class DeepDiffFactory {
 
-  function __construct(\GitRestApi\Repository $repo) {
+  function __construct(\GitRestApi\Repository $repo, string $dsn, string $table) {
     $this->repo = $repo;
+    $this->dsn  = $dsn;
+    $this->table= $table;
   }
 
   public function commits()
@@ -29,12 +31,6 @@ class DeepDiffFactory {
     if(count($commits)==0) {
       throw new \Exception("No commits in history");
     }
-
-    // key by sha1
-    $commits = array_combine(
-      array_column($commits,'sha1'),
-      $commits
-    );
 
     $sha1A=array_combine(
       array_column($commits,'sha1'),
@@ -73,7 +69,12 @@ class DeepDiffFactory {
 
   // sha1 - output of $this->parentOf...
   public function diff(string $sha1) {
-    $diffS = $this->repo->diff('MarketflowAcc/TITRE.yml',$sha1);
+    $diffS = $this->repo->diff($this->dsn.'/'.$this->table.'.yml',$sha1);
+
+    if($diffS=='') {
+      throw new \Exception("git diff returned empty string!");
+    }
+
     $diffA = json_decode($diffS,true);
 
     if(is_null($diffA)) {

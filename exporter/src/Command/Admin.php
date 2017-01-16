@@ -4,30 +4,28 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
-class Maintenance extends Command {
+class Admin extends MyCommand {
 
     protected function configure()
     {
       $this
           // the name of the command (the part after "bin/console")
-          ->setName('maintenance')
+          ->setName('admin')
 
           // the short description shown while running "php bin/console list"
-          ->setDescription('Maintenance on git')
+          ->setDescription('Administrative commands')
 
           // the full command description shown when running the command with
           // the "--help" option
-          ->setHelp("Maintenance on git")
-      ;
-
-      $this->addOption(
-          'action',
-          'a',
-          InputOption::VALUE_REQUIRED,
-          'Action: deleteAll'
-      );
+          ->setHelp("Administrative commands")
+          ->addArgument(
+              'action',
+              InputArgument::REQUIRED,
+              'action: git:deleteAll for delete git repo'
+            )
+        ;
 
     }
 
@@ -35,8 +33,8 @@ class Maintenance extends Command {
     {
       $repo = $this->factory->repo();
 
-      $action = $input->getOption('action');
-      if($action=='deleteAll') {
+      $action = $input->getArgument('action');
+      if($action=='git:deleteAll') {
         $repo->deleteAll();
         $output->writeLn("Ran delete all");
       }

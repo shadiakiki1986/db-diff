@@ -9,10 +9,12 @@ class PdoGitTest extends \PHPUnit_Framework_TestCase {
                  ->disableOriginalConstructor() 
                  ->getMock();
     $pdo->method('query')
-        ->willReturn([
-          ['c11'=>'v11','c12'=>'v12'],
-          ['c21'=>'v21','c21'=>'v21']
-        ]);
+        ->will($this->returnCallback(function() {
+          yield [
+            ['c11'=>'v11','c12'=>'v12'],
+            ['c21'=>'v21','c21'=>'v21']
+          ];
+        }));
 
     $repo = $this->getMockBuilder('\GitRestApi\Repository')
                  ->disableOriginalConstructor() 

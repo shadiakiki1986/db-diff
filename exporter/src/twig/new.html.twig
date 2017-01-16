@@ -5,11 +5,11 @@
     <th>Name</th>
     <th>Provider code</th>
   </tr>
-  {% foreach new as dif %}
+  {% for dif in new %}
   <tr>
-    <td>dif.path[0]</td>
-    <td>dif.lhs['name']</td>
-    <td>dif.lhs['TIT_REU_COD']</td>
+    {% for field in dif %}
+    <td>{{field}}</td>
+    {% endfor %}
   </tr>
-  {% endforeach %}
+  {% endfor %}
 </table>

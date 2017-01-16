@@ -4,9 +4,8 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
 
-class Export extends Command {
+class Export extends MyCommand {
 
     protected function configure()
     {
@@ -20,32 +19,17 @@ class Export extends Command {
           // the full command description shown when running the command with
           // the "--help" option
           ->setHelp("Export a sql server table to git")
-      ;
-
-      $this->addOption(
-          'dsn',
-          'd',
-          InputOption::VALUE_REQUIRED,
-          'Name of dsn in /etc/odbc.ini to export'
-      );
-
+        ;
+      parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
       $repo = $this->factory->repo();
 
-      $subset = $input->getOption('dsn');
-      $subset = explode(',',$subset);
-
-      foreach($this->factory->pdo($subset) as $dsn=>$obj) {
-        if(!array_key_exists('dbname',$obj['odbc'])) {
-          throw new \Exception("Missing field dbname from ".$dsn);
-        }
-
-        $obj['pdo']->query("use ".$obj['odbc']['dbname'].";");
+      foreach($this->factory->pdo([$input->getArgument('dsn')]) as $dsn=>$obj) {
         $pg = new \PdoGit\PdoGit($obj['pdo'],$repo);
-        $pg->export('TITRE',$dsn);
+        $pg->export($dsn,$input->getArgument('table'));
       }
     }
 

@@ -9,9 +9,11 @@ services:
     environment:
     - LOGLEVEL=info
 
-#  exporter:
-#    build:
-#      context: exporter
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - git
+  exporter:
+    build:
+      context: exporter
+      dockerfile: Dockerfile
+    depends_on:
+    - git
+    environment:
+    - DBDIFF_GRAPI_HOST=http://git:8082

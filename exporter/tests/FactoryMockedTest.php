@@ -12,7 +12,7 @@ class FactoryMockedTest extends \PHPUnit_Framework_TestCase {
         ->willReturn(new \PDO("sqlite::memory:"));
 
     $fac = new Factory();
-    $obj = $fac->pdo(__DIR__.'/odbc.ini',$pdoWrap);
+    $obj = $fac->pdo(null,__DIR__.'/../etc/odbc.dev.ini',$pdoWrap);
 
     // unwrap the object returned
     $obj = iterator_to_array($obj);
