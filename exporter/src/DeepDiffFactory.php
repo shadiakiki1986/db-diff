@@ -96,7 +96,8 @@ class DeepDiffFactory {
   // kind: deep-diff key to filter for:
   //       N (new), D (dropped), E (edited)
   //       https://github.com/flitbit/diff#differences
-  public function split(array $differences, string $kind) {
+  // columns - names of columns to filter
+  public function split(array $differences, string $kind, array $columns=null) {
     if(!in_array($kind,['N','D','E'])) {
       throw new \Exception("split kind not supported: ".$kind);
     }
@@ -108,33 +109,28 @@ class DeepDiffFactory {
       }
     );
 
-    switch($kind) {
-      case 'A':
-        $subset = array_column($subset,'item');
-        break;
-      case 'N':
-        $subset = array_column($subset,'rhs');
-        $this->filterCols($subset);
-        return $subset;
-      case 'D':
-        $subset = array_column($subset,'lhs');
-        $this->filterCols($subset);
-        return $subset;
-      case 'E':
-        return $subset;
+    if($kind=='E') {
+      return $subset;
+    }
+
+    $map = ['N'=>'rhs','D'=>'lhs'];
+    $subset = array_column($subset,$map[$kind]);
+
+    if(!is_null($columns)) {
+      $this->filterCols($subset, $columns);
     }
 
     return $subset;
   }
 
   // FFA-specific filtering of columns
-  private function filterCols(array &$out) {
+  private function filterCols(array &$out, array $columns) {
       array_walk(
         $out,
-        function(&$row) {
+        function(&$row) use($columns) {
           $row = array_intersect_key(
             $row,
-            array_flip(['TIT_COD','TIT_NOM','TIT_REU_COD'])
+            array_flip($columns)
           );
         }
       );

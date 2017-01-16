@@ -5,6 +5,7 @@ namespace PdoGit\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class Export extends MyCommand {
 
@@ -29,6 +30,12 @@ class Export extends MyCommand {
         InputArgument::REQUIRED,
         'ID column in table'
       );
+      $this->addOption(
+        'init',
+        '',
+        InputOption::VALUE_NONE,
+        'flag to use ONLY for initial export (to skip check diff on initial import)'
+      );
 
     }
 
@@ -41,7 +48,8 @@ class Export extends MyCommand {
         $pg->export(
           $dsn,
           $input->getArgument('table'),
-          $input->getArgument('ID')
+          $input->getArgument('ID'),
+          $input->getOption('init')
         );
       }
     }

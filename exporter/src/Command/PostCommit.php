@@ -30,13 +30,21 @@ class PostCommit extends MyCommand {
         'format output: console, json, html',
         'console'
       );
+      $this->addOption(
+        'columns',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'columns file: path/to/file.yml'
+      );
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
       $ddo = $this->factory->deepDiff(
         $input->getArgument('dsn'),
-        $input->getArgument('table')
+        $input->getArgument('table'),
+        $input->getOption('columns')
       );
 
       switch($input->getOption('format')) {

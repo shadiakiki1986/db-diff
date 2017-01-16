@@ -9,8 +9,8 @@ class PdoGit {
     $this->repo = $repo;
   }
 
-  public function export(string $dsn, string $table, string $id) {
-    $stmt = $this->pdo->query("select top 4 TIT_COD,TIT_NOM from ".$table,\PDO::FETCH_ASSOC);
+  public function export(string $dsn, string $table, string $id, bool $init=false) {
+    $stmt = $this->pdo->query("select * from ".$table,\PDO::FETCH_ASSOC);
     if(!$stmt) {
       throw new \Exception("Exception from PDO query");
     }
@@ -31,8 +31,10 @@ class PdoGit {
     $this->repo->putTree($fn,\yaml_emit($result));
 
     // before committing, check if data changed
-    if($this->repo->diff($fn,null,null,true)=='') {
-      throw new \Exception("Data not changed");
+    if(!$init) {
+      if($this->repo->diff($fn,null,null,true)=='') {
+        throw new \Exception("Data not changed");
+      }
     }
 
     // commit
