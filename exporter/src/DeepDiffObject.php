@@ -47,6 +47,21 @@ class DeepDiffObject {
     $emailer = new Emailer($report);
     $emailer->send(['my@email.com']);*/
 
+  private function consoleCore(OutputInterface $output, string $label, array $array) {
+    $output->writeLn($label);
+    if(count($array)==0) {
+      $output->writeLn('None');
+      $output->writeLn('');
+      return;
+    }
+
+    $table = new Table($output);
+    $table->setHeaders(array_keys($array[0]));
+    $table->setRows($array);
+    $table->render();
+    $output->writeLn('');
+  }
+
   public function console(OutputInterface $output)
   {
     $output->writeLn(
@@ -57,39 +72,22 @@ class DeepDiffObject {
     );
     $output->writeLn('');
 
-    $output->writeLn('New securities');
-    if(count($this->new)==0) {
-      $output->writeLn('None');
-    } else {
-      $table = new Table($output);
-      $table->setHeaders(array_keys($this->new[0]));
-      $table->setRows($this->new);
-      $table->render();
-    }
-    $output->writeLn('');
+    $this->consoleCore($output,'New securities',$this->new);
+    $this->consoleCore($output,'Deleted securities',$this->deleted);
 
-    $output->writeLn('Deleted securities');
-    if(count($this->deleted)==0) {
-      $output->writeLn('None');
-    } else {
-      $table = new Table($output);
-      $table->setHeaders(array_keys($this->deleted[0]));
-      $table->setRows($this->deleted);
-      $table->render();
+    $processed = [];
+    foreach($this->edited as $entry) {
+      array_push(
+        $processed,
+        [
+          'ID'=>$entry['path'][0],
+          'field'=>$entry['path'][1],
+          'old'=>$entry['lhs'],
+          'new'=>$entry['rhs']
+        ]
+      );
     }
-    $output->writeLn('');
-
-    $output->writeLn('Edited securities');
-    if(count($this->edited)==0) {
-      $output->writeLn('None');
-    } else {
-      $table = new Table($output);
-      $table->setHeaders(array_keys($this->edited[0]));
-      $table->setRows($this->edited);
-      $table->render();
-    }
-    $output->writeLn('');
-
+    $this->consoleCore($output,'Edited securities',$processed);
   }
 
 }

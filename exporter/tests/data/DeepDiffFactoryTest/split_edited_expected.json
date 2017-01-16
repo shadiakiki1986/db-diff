@@ -1,26 +1,38 @@
 [
     {
-        "ID": 0,
-        "field": "TIT_NOM",
-        "old": "CNPC (HONG KONG) HKD",
-        "new": "bla"
+        "kind": "E",
+        "path": [
+            0,
+            "TIT_NOM"
+        ],
+        "lhs": "CNPC (HONG KONG) HKD",
+        "rhs": "bla"
     },
     {
-        "ID": 1,
-        "field": "TIT_NOM",
-        "old": "HSBC HOLDINGS HKD10 (HK REG)",
-        "new": "bla"
+        "kind": "E",
+        "path": [
+            1,
+            "TIT_NOM"
+        ],
+        "lhs": "HSBC HOLDINGS HKD10 (HK REG)",
+        "rhs": "bla"
     },
     {
-        "ID": 2,
-        "field": "TIT_NOM",
-        "old": "KWONG SANG HONG",
-        "new": "bla"
+        "kind": "E",
+        "path": [
+            2,
+            "TIT_NOM"
+        ],
+        "lhs": "KWONG SANG HONG",
+        "rhs": "bla"
     },
     {
-        "ID": 3,
-        "field": "TIT_NOM",
-        "old": "TBILLS 03\/04\/97",
-        "new": "bla"
+        "kind": "E",
+        "path": [
+            3,
+            "TIT_NOM"
+        ],
+        "lhs": "TBILLS 03\/04\/97",
+        "rhs": "bla"
     }
 ]
