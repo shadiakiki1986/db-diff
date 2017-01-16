@@ -1,0 +1,25 @@
+
+[
+    {
+        "kind": "A",
+        "index": 4,
+        "item": {
+            "kind": "N",
+            "rhs": {
+                "TIT_COD": "03\/12\/98",
+                "TIT_NOM": "TBILLS 03\/12\/98"
+            }
+        }
+    },
+    {
+        "kind": "A",
+        "index": 5,
+        "item": {
+            "kind": "N",
+            "rhs": {
+                "TIT_COD": "1",
+                "TIT_NOM": "CASINO DU LIBAN FRN LIBOR + 4.5%"
+            }
+        }
+    }
+]

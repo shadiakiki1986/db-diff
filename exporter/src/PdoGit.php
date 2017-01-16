@@ -10,7 +10,7 @@ class PdoGit {
   }
 
   public function export(string $dsn, string $table) {
-    $stmt = $this->pdo->query("select top 7 TIT_COD,TIT_NOM from ".$table,\PDO::FETCH_ASSOC);
+    $stmt = $this->pdo->query("select top 4 TIT_COD,TIT_NOM from ".$table,\PDO::FETCH_ASSOC);
     if(!$stmt) {
       throw new \Exception("Exception from PDO query");
     }

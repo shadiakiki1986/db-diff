@@ -1,0 +1,38 @@
+[
+    {
+        "kind": "E",
+        "path": [
+            0,
+            "TIT_NOM"
+        ],
+        "lhs": "CNPC (HONG KONG) HKD",
+        "rhs": "bla"
+    },
+    {
+        "kind": "E",
+        "path": [
+            1,
+            "TIT_NOM"
+        ],
+        "lhs": "HSBC HOLDINGS HKD10 (HK REG)",
+        "rhs": "bla"
+    },
+    {
+        "kind": "E",
+        "path": [
+            2,
+            "TIT_NOM"
+        ],
+        "lhs": "KWONG SANG HONG",
+        "rhs": "bla"
+    },
+    {
+        "kind": "E",
+        "path": [
+            3,
+            "TIT_NOM"
+        ],
+        "lhs": "TBILLS 03\/04\/97",
+        "rhs": "bla"
+    }
+]

@@ -70,6 +70,9 @@ class Factory {
 
     return new DeepDiffObject(
       $differences,
+      $ge->split($differences,['A','N']),
+      $ge->split($differences,['A','D']),
+      $ge->split($differences,['E']),
       $commits[$sha1]['commitDate'],
       $today
     );

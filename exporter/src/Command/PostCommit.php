@@ -4,7 +4,6 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputOption;
 
 // get diff and send result by email (this is parallel to the UI)
@@ -35,20 +34,21 @@ class PostCommit extends MyCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $ddo = $this->factory->deepDiff($input->getArgument('dsn'),$input->getArgument('table'));
+      $ddo = $this->factory->deepDiff(
+        $input->getArgument('dsn'),
+        $input->getArgument('table')
+      );
 
       switch($input->getOption('format')) {
         case 'php':
-          var_dump($ddo->split('A'));
+          $output->writeLn(json_encode($ddo->differences,JSON_PRETTY_PRINT));
+          //$output->writeLn(json_encode($ddo->edited,JSON_PRETTY_PRINT));
           break;
         case 'html':
           var_dump($ddo->html());
           break;
         case 'console':
-          $table = new Table($output);
-          $table->setHeaders(array_keys($ddo->split('A')[0]));
-          $table->setRows($ddo->split('A'));
-          $table->render();
+          $ddo->console($output);
           break;
         default:
           throw new \Exception("Invalid format: ".$input->getOption('format'));

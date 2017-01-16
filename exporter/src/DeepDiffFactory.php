@@ -32,10 +32,6 @@ class DeepDiffFactory {
       throw new \Exception("No commits in history");
     }
 
-    $commits=array_combine(
-      array_column($commits,'sha1'),
-      $commits
-    );
     $sha1A=array_combine(
       array_column($commits,'sha1'),
       array_column($commits,'commitDate')
@@ -91,6 +87,72 @@ class DeepDiffFactory {
     }
 
     return($diffA);
+  }
+
+  // This function returns row-level subsets
+  // "row-level" is important because it doesn't return "new fields"
+  //
+  // differences: output of this->diff
+  // kind: array of deep-diff key: N (new), D (dropped), E (edited)
+  //       This is recursive. [A,N] will filter for A first, then filter for N
+  //                          [N] will filter for N only
+  //       https://github.com/flitbit/diff#differences
+  public function split(array $differences, array $kind) {
+    $subset = $differences;
+    foreach($kind as $k) {
+      if(!in_array($k,['A','N','D','E'])) {
+        throw new \Exception("split kind not supported: ".$kind);
+      }
+
+      $subset = array_filter(
+        $subset,
+        function($entry) use($k) {
+          return $entry['kind']==$k;
+        }
+      );
+      switch($k) {
+        case 'A':
+          $subset = array_column($subset,'item');
+          break;
+        case 'N':
+          $subset = array_column($subset,'rhs');
+          $this->filterCols($subset);
+          return $subset;
+        case 'D':
+          $subset = array_column($subset,'lhs');
+          $this->filterCols($subset);
+          return $subset;
+        case 'E':
+          $out = [];
+          foreach($subset as $entry) {
+            array_push(
+              $out,
+              [
+                'ID'=>$entry['path'][0],
+                'field'=>$entry['path'][1],
+                'old'=>$entry['lhs'],
+                'new'=>$entry['rhs']
+              ]
+            );
+          }
+          return $out;
+      }
+    }
+
+    return $subset;
+  }
+
+  // FFA-specific filtering of columns
+  private function filterCols(array &$out) {
+      array_walk(
+        $out,
+        function(&$row) {
+          $row = array_intersect_key(
+            $row,
+            array_flip(['TIT_COD','TIT_NOM','TIT_REU_COD'])
+          );
+        }
+      );
   }
 
 }
