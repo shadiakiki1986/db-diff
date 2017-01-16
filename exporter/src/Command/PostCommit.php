@@ -21,15 +21,15 @@ class PostCommit extends MyCommand {
           // the full command description shown when running the command with
           // the "--help" option
           ->setHelp("Email a user with the diff of a table between two dates")
-          ->addOption(
-              'format',
-              '',
-              InputOption::VALUE_REQUIRED,
-              'format output: console, php, html',
-              'console'
-            )
       ;
       parent::configure();
+      $this->addOption(
+        'format',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'format output: console, json, html',
+        'console'
+      );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -40,7 +40,7 @@ class PostCommit extends MyCommand {
       );
 
       switch($input->getOption('format')) {
-        case 'php':
+        case 'json':
           $output->writeLn(json_encode($ddo->differences,JSON_PRETTY_PRINT));
           //$output->writeLn(json_encode($ddo->edited,JSON_PRETTY_PRINT));
           break;

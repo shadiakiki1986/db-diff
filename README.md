@@ -1,6 +1,10 @@
 # ffa-database-diff
 Workflow to save database data to git repository and display differences in email/ui
 
+Similar tools
+* http://www.red-gate.com/products/sql-development/sql-source-control/
+* http://www.gitsql.net/
+
 ## Architecture
 Similar to [ffa-zkteco-mfbf](https://github.com/shadiakiki1986/ffa-zkteco-mfbf/)
 

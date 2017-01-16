@@ -9,7 +9,7 @@ class PdoGit {
     $this->repo = $repo;
   }
 
-  public function export(string $dsn, string $table) {
+  public function export(string $dsn, string $table, string $id) {
     $stmt = $this->pdo->query("select top 4 TIT_COD,TIT_NOM from ".$table,\PDO::FETCH_ASSOC);
     if(!$stmt) {
       throw new \Exception("Exception from PDO query");
@@ -20,8 +20,13 @@ class PdoGit {
       throw new \Exception("No data returned from PDO query");
     }
 
-    $this->repo->putConfig('user.email','shadiakiki1986@gmail.com');
-    $this->repo->putConfig('user.name','Shadi Akiki');
+    // keying by ID field
+    $result = array_combine(
+      array_column($result,$id),
+      $result
+    );
+
+    // upload to git (without committing)
     $fn = $dsn.'/'.$table.'.yml';
     $this->repo->putTree($fn,\yaml_emit($result));
 

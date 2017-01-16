@@ -93,38 +93,35 @@ class DeepDiffFactory {
   // "row-level" is important because it doesn't return "new fields"
   //
   // differences: output of this->diff
-  // kind: array of deep-diff key: N (new), D (dropped), E (edited)
-  //       This is recursive. [A,N] will filter for A first, then filter for N
-  //                          [N] will filter for N only
+  // kind: deep-diff key to filter for:
+  //       N (new), D (dropped), E (edited)
   //       https://github.com/flitbit/diff#differences
-  public function split(array $differences, array $kind) {
-    $subset = $differences;
-    foreach($kind as $k) {
-      if(!in_array($k,['A','N','D','E'])) {
-        throw new \Exception("split kind not supported: ".$kind);
-      }
+  public function split(array $differences, string $kind) {
+    if(!in_array($kind,['N','D','E'])) {
+      throw new \Exception("split kind not supported: ".$kind);
+    }
 
-      $subset = array_filter(
-        $subset,
-        function($entry) use($k) {
-          return $entry['kind']==$k;
-        }
-      );
-      switch($k) {
-        case 'A':
-          $subset = array_column($subset,'item');
-          break;
-        case 'N':
-          $subset = array_column($subset,'rhs');
-          $this->filterCols($subset);
-          return $subset;
-        case 'D':
-          $subset = array_column($subset,'lhs');
-          $this->filterCols($subset);
-          return $subset;
-        case 'E':
-          return $subset;
+    $subset = array_filter(
+      $differences,
+      function($entry) use($kind) {
+        return $entry['kind']==$kind;
       }
+    );
+
+    switch($kind) {
+      case 'A':
+        $subset = array_column($subset,'item');
+        break;
+      case 'N':
+        $subset = array_column($subset,'rhs');
+        $this->filterCols($subset);
+        return $subset;
+      case 'D':
+        $subset = array_column($subset,'lhs');
+        $this->filterCols($subset);
+        return $subset;
+      case 'E':
+        return $subset;
     }
 
     return $subset;

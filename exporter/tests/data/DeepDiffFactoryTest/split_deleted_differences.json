@@ -1,25 +1,23 @@
 
 [
     {
-        "kind": "A",
-        "index": 2,
-        "item": {
-            "kind": "D",
-            "lhs": {
-                "TIT_COD": "0189 HK",
-                "TIT_NOM": "KWONG SANG HONG"
-            }
+        "kind": "D",
+        "path": [
+            "0189 HK"
+        ],
+        "lhs": {
+            "TIT_COD": "0189 HK",
+            "TIT_NOM": "KWONG SANG HONG"
         }
     },
     {
-        "kind": "A",
-        "index": 3,
-        "item": {
-            "kind": "D",
-            "lhs": {
-                "TIT_COD": "03\/04\/97",
-                "TIT_NOM": "TBILLS 03\/04\/97"
-            }
+        "kind": "D",
+        "path": [
+            "03\/04\/97"
+        ],
+        "lhs": {
+            "TIT_COD": "03\/04\/97",
+            "TIT_NOM": "TBILLS 03\/04\/97"
         }
     }
 ]

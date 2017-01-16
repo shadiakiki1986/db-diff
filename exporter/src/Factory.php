@@ -20,6 +20,8 @@ class Factory {
     if(!$repo) {
       // if first usage
       $repo = $git->init($GIT_NAME);
+      $repo->putConfig('user.email','shadiakiki1986@gmail.com');
+      $repo->putConfig('user.name','Shadi Akiki');
     }
     return $repo;
   }
@@ -70,9 +72,11 @@ class Factory {
 
     return new DeepDiffObject(
       $differences,
-      $ge->split($differences,['A','N']),
-      $ge->split($differences,['A','D']),
-      $ge->split($differences,['E']),
+      //$ge->split($differences,['A','N']),
+      $ge->split($differences,'N'),
+      //$ge->split($differences,['A','D']),
+      $ge->split($differences,'D'),
+      $ge->split($differences,'E'),
       $commits[$sha1]['commitDate'],
       $today
     );

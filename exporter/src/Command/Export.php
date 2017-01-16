@@ -4,6 +4,7 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 class Export extends MyCommand {
 
@@ -20,7 +21,15 @@ class Export extends MyCommand {
           // the "--help" option
           ->setHelp("Export a sql server table to git")
         ;
+
       parent::configure();
+
+      $this->addArgument(
+        'ID',
+        InputArgument::REQUIRED,
+        'ID column in table'
+      );
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -29,7 +38,11 @@ class Export extends MyCommand {
 
       foreach($this->factory->pdo([$input->getArgument('dsn')]) as $dsn=>$obj) {
         $pg = new \PdoGit\PdoGit($obj['pdo'],$repo);
-        $pg->export($dsn,$input->getArgument('table'));
+        $pg->export(
+          $dsn,
+          $input->getArgument('table'),
+          $input->getArgument('ID')
+        );
       }
     }
 

@@ -2,7 +2,7 @@
     {
         "kind": "E",
         "path": [
-            0,
+            "0.01 HKD",
             "TIT_NOM"
         ],
         "lhs": "CNPC (HONG KONG) HKD",
@@ -11,7 +11,7 @@
     {
         "kind": "E",
         "path": [
-            1,
+            "0005.HK",
             "TIT_NOM"
         ],
         "lhs": "HSBC HOLDINGS HKD10 (HK REG)",
@@ -20,7 +20,7 @@
     {
         "kind": "E",
         "path": [
-            2,
+            "0189 HK",
             "TIT_NOM"
         ],
         "lhs": "KWONG SANG HONG",
@@ -29,7 +29,7 @@
     {
         "kind": "E",
         "path": [
-            3,
+            "03\/04\/97",
             "TIT_NOM"
         ],
         "lhs": "TBILLS 03\/04\/97",

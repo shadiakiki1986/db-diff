@@ -42,7 +42,7 @@ class DeepDiffFactoryTest extends\PHPUnit_Framework_TestCase
   /**
    * @dataProvider testSplitProvider
    */
-  public function testSplit(array $type, string $differences, string $expected) {
+  public function testSplit(string $type, string $differences, string $expected) {
     $repo = $this->getMockBuilder('\GitRestApi\Repository')
                  ->disableOriginalConstructor() 
                  ->getMock();
@@ -64,17 +64,17 @@ class DeepDiffFactoryTest extends\PHPUnit_Framework_TestCase
   public function testSplitProvider() {
     return [
       [
-        ['E'],
+        'E',
         'split_edited_differences.json',
         'split_edited_expected.json'
       ],
       [
-        ['A','N'],
+        'N',
         'split_new_differences.json',
         'split_new_expected.json'
       ],
       [
-        ['A','D'],
+        'D',
         'split_deleted_differences.json',
         'split_deleted_expected.json'
       ],

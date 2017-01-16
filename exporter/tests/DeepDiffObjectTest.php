@@ -21,7 +21,7 @@ class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase
       new \DateTime()
     );
     $actual = $ge->html();
-    // file_put_contents($expected,$actual);
+    file_put_contents($expected,$actual);
     $this->assertEquals(
       file_get_contents($expected),
       $actual

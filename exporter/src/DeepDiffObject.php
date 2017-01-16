@@ -77,6 +77,9 @@ class DeepDiffObject {
 
     $processed = [];
     foreach($this->edited as $entry) {
+      // skip key changes
+      if(!array_key_exists('path',$entry)) continue;
+
       array_push(
         $processed,
         [
