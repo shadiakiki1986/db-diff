@@ -123,19 +123,7 @@ class DeepDiffFactory {
           $this->filterCols($subset);
           return $subset;
         case 'E':
-          $out = [];
-          foreach($subset as $entry) {
-            array_push(
-              $out,
-              [
-                'ID'=>$entry['path'][0],
-                'field'=>$entry['path'][1],
-                'old'=>$entry['lhs'],
-                'new'=>$entry['rhs']
-              ]
-            );
-          }
-          return $out;
+          return $subset;
       }
     }
 
