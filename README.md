@@ -1,17 +1,72 @@
-# ffa-database-diff
-Workflow to save database data to git repository and display differences in email/ui
+# db-diff
+CLI to diff database tables
 
-## Architecture
-Similar to [ffa-zkteco-mfbf](https://github.com/shadiakiki1986/ffa-zkteco-mfbf/)
+Does it in 3 steps
 
-## Testing `exporter`
+1. Set up PHP-ODBC connections and store your database connection in `/etc/odbc.ini`
+2. export table from database via ODBC connection to git via `git-rest-api` server
+3. export table again after edits
+4. get `git diff` results
+
+Running periodic exports gives more points in time to `diff` against
+
+## Usage
+
+Synopsis
+```bash
+./bin/pdo-git export [--init] <DSN> <DB>..<TABLE>
+./bin/pdo-git post-commit --format [html,console,json] -- <DSN> <DB>..<TABLE>
+```
+
+Set env var for `git-rest-api` server
+
+```bash
+export DBDIFF_GRAPI_HOST=http://localhost:8082
+```
+
+Against mysql odbc entry
+```bash
+./bin/pdo-git export MarketflowAcc mf.t1
+./bin/pdo-git post-commit MarketflowAcc mf.t1
+```
+
+Against SQL server odbc entry
+```bash
+./bin/pdo-git export MarketflowAcc Marketflow..t1
+./bin/pdo-git post-commit MarketflowAcc Marketflow..t1
+```
+
+Reset:
+```bash
+./bin/pdo-git admin git:deleteAll
+```
+## Testing
 1. Set up a mysql database to test against locally:
 
-`docker-compose -f docker-compose.yml -f docker-compose.dev.yml up db`
+```bash
+docker run \
+  -e MYSQL_RANDOM_ROOT_PASSWORD=yes \
+  -e MYSQL_DATABASE=mf \
+  -e MYSQL_USER=user \
+  -e MYSQL_PASSWORD=password \
+  -v $PWD/tests/initdb.d:/docker-entrypoint-initdb.d \
+  -p 3306:3306 \
+  mysql:8
+```
 
-Test with `mysql --host 127.0.0.1 --user user --password` and run `use mf; select * from t1`
+Test with
 
-2. Run the `git-rest-api` server locally: `docker-compose up git`
+```bash
+mysql --host 127.0.0.1 --user user --password
+> use mf;
+> select * from t1
+```
+
+2. Run the `git-rest-api` server locally:
+
+```bash
+docker-compose up git
+```
 3. Set up dev env using option 1 or 2 below
 4. Install dependencies: `composer install`
 4. Run tests in `exporter`: `composer test`

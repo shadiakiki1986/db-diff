@@ -1,5 +1,5 @@
 {
-    "name": "shadi/exporter",
+    "name": "shadiakiki1986/db-diff",
     "require": {
         "shadiakiki1986/git-rest-api-client": "*",
         "ext-yaml": "*",

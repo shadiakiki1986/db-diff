@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "023c9740a087d25e8fd8d078939e03a3",
+    "content-hash": "d3a47bae80ed89b907c193c41820c324",
     "packages": [
         {
             "name": "nategood/httpful",
@@ -105,17 +105,17 @@
         },
         {
             "name": "shadiakiki1986/git-rest-api-client",
-            "version": "0.0.13.5",
+            "version": "0.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shadiakiki1986/git-rest-api-client-php.git",
-                "reference": "f657b81e61360f7a50acca0b75b93615c916abe9"
+                "reference": "5c9d89ea8a7ad005a8750801ada92ecba34a40db"
             },
             "dist": {
-                "type": "path",
-                "url": "https://api.github.com/repos/shadiakiki1986/git-rest-api-client-php/zipball/f657b81e61360f7a50acca0b75b93615c916abe9",
-                "reference": "f657b81e61360f7a50acca0b75b93615c916abe9",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/shadiakiki1986/git-rest-api-client-php/zipball/5c9d89ea8a7ad005a8750801ada92ecba34a40db",
+                "reference": "5c9d89ea8a7ad005a8750801ada92ecba34a40db",
+                "shasum": ""
             },
             "require": {
                 "nategood/httpful": "^0.2.20",
@@ -131,16 +131,7 @@
                     "GitRestApi\\": "src/GitRestApi"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "GitRestApi\\": "tests/GitRestApi"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -157,7 +148,8 @@
                 "client",
                 "git",
                 "rest"
-            ]
+            ],
+            "time": "2017-01-16T11:32:56+00:00"
         },
         {
             "name": "symfony/console",
