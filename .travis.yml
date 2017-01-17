@@ -3,7 +3,7 @@ php:
 - 7
 install:
 - pecl install yaml-2.0.0 < /dev/null
-- pecl install PDO_ODBC < /dev/null
+- pecl install PDO_ODBC < echo "unixODBC"
 - composer install
 script: composer test
 branches:
