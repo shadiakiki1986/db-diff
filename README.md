@@ -1,4 +1,4 @@
-# db-diff
+# db-diff [![Build Status](https://travis-ci.org/shadiakiki1986/db-diff.svg?branch=master)](https://travis-ci.org/shadiakiki1986/db-diff)
 CLI to version control database tables and show their daily diff
 
 Does it in 3 steps
