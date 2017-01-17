@@ -1,5 +1,5 @@
 # db-diff
-CLI to diff database tables
+CLI to version control database tables and show their daily diff
 
 Does it in 3 steps
 
