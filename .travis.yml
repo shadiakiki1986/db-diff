@@ -1,7 +1,10 @@
 language: php
 php:
 - 7
-install: composer install
+install:
+- pecl install yaml-2.0.0
+- pecl install PDO_ODBC
+- composer install
 script: composer test
 branches:
   only:
