@@ -43,8 +43,8 @@ class Export extends MyCommand {
     {
       $repo = $this->factory->repo();
 
-      foreach($this->factory->pdo([$input->getArgument('dsn')]) as $dsn=>$obj) {
-        $pg = new \PdoGit\PdoGit($obj['pdo'],$repo);
+      foreach($this->factory->pdo([$input->getArgument('dsn')]) as $dsn=>$pdo) {
+        $pg = new \PdoGit\PdoGit($pdo,$repo);
         $pg->export(
           $dsn,
           $input->getArgument('table'),

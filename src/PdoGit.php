@@ -20,6 +20,16 @@ class PdoGit {
       throw new \Exception("No data returned from PDO query");
     }
 
+    // check if ID field ok
+    $available = array_keys(array_values($result)[0]);
+    if(!in_array($id,$available)) {
+      throw new \Exception(
+         "Perhaps ID column does not exist? "
+        ."User passed '".$id.'" but table has: '
+        .implode(', ',$available)
+      );
+    }
+
     // keying by ID field
     $result = array_combine(
       array_column($result,$id),

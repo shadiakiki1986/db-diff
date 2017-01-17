@@ -46,7 +46,7 @@ class Factory {
       #$dsn = "mysql:host=$hostname;dbname=$dbname";
       #return new \PDO($dsn, $username, $password);
 
-      yield $dsn=>['pdo'=>$pdo,'odbc'=>$details];
+      yield $dsn=>$pdo;
     }
   }
 
