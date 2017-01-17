@@ -4,7 +4,7 @@ namespace PdoGit;
 
 class FactoryMockedTest extends \PHPUnit_Framework_TestCase {
 
-  public function testPdo() {
+  public function testPdoOk() {
     $pdoWrap = $this->getMockBuilder('\PdoGit\PdoWrap')
                  ->disableOriginalConstructor() 
                  ->getMock();
@@ -12,13 +12,28 @@ class FactoryMockedTest extends \PHPUnit_Framework_TestCase {
         ->willReturn(new \PDO("sqlite::memory:"));
 
     $fac = new Factory();
-    $obj = $fac->pdo(null,__DIR__.'/../etc/odbc.dev.ini',$pdoWrap);
+    $pdo = $fac->pdo(['MarketflowAcc'],__DIR__.'/data/odbc.ini',$pdoWrap);
 
-    // unwrap the object returned
-    $obj = iterator_to_array($obj);
-    $obj=array_pop($obj);
-    $this->assertInstanceOf(\PDO::class,$obj['pdo']);
-    $this->assertTrue(is_array($obj['odbc']));
+    // unwrap the pdo object returned
+    $pdo = iterator_to_array($pdo);
+    $this->assertEquals(1,count($pdo));
+    $pdo=array_pop($pdo);
+    $this->assertInstanceOf(\PDO::class,$pdo);
+  }
+
+  public function testPdoInvalidDsn() {
+    $pdoWrap = $this->getMockBuilder('\PdoGit\PdoWrap')
+                 ->disableOriginalConstructor() 
+                 ->getMock();
+    $pdoWrap->method('get')
+        ->willReturn(new \PDO("sqlite::memory:"));
+
+    $fac = new Factory();
+    $pdo = $fac->pdo(['wrong'],__DIR__.'/data/odbc.ini',$pdoWrap);
+
+    // unwrap the pdo object returned
+    $this->expectException(\Exception::class);
+    $pdo = iterator_to_array($pdo);
   }
 
   public function testRepo() {
