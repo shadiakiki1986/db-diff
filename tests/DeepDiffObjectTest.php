@@ -17,14 +17,15 @@ class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase
       $new,
       $deleted,
       $edited,
-      new \DateTime(),
-      new \DateTime()
+      \DateTime::createFromFormat('!Y-m-d','2017-01-16'),
+      \DateTime::createFromFormat('!Y-m-d','2017-01-16')
     );
     $actual = $ge->html();
     // file_put_contents($expected,$actual);
     $this->assertEquals(
       file_get_contents($expected),
-      $actual
+      $actual,
+      $expected
     );
   }
 
