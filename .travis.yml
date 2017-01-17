@@ -1,9 +1,9 @@
 language: php
 php:
 - 7
-install:
+before_install:
 - pecl install yaml-2.0.0 < /dev/null
-- echo "unixODBC,/usr/" | pecl install PDO_ODBC
+install:
 - composer install
 script: composer test
 branches:

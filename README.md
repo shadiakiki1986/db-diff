@@ -20,7 +20,7 @@ Similar tools (didn't try them)
 (Example usage: [ffa-db-diff](https://github.com/shadiakiki1986/ffa-db-diff/) )
 
 1. Requirements:
-  1. a ready PDO-ODBC connection
+  1. [PDO-ODBC](http://php.net/manual/en/ref.pdo-odbc.php) driver and a ready connection
   2. a `node-git-rest-api` server with `deep-diff-yml` configured for yml files
 
 2. Set env var for `git-rest-api` server
