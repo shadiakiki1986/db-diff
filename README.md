@@ -10,9 +10,11 @@ Does it in 3 steps
 
 Running periodic exports gives more points in time to `diff` against
 
-Similar tools
-* http://www.red-gate.com/products/sql-development/sql-source-control/
-* http://www.gitsql.net/
+Similar tools (didn't try them)
+* [Red gate](http://www.red-gate.com/products/sql-development/sql-source-control/): similar to this repo, can version control "static data"
+* [git-sql](http://www.gitsql.net/): diff of sql data dumps
+* [Nayjest/db-diff](https://github.com/Nayjest/db-diff): diff of two tables with the same structure
+* [PM-Connect/db-diff](https://github.com/PM-Connect/db-diff): diff of two database structures
 
 ## Usage
 
