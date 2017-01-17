@@ -33,6 +33,15 @@ class Factory {
 
     // iterate over databases in odbc
     $iniContents = parse_ini_file($iniFile,true);
+    $wrong = array_diff_key(array_flip($dsn),$iniContents);
+    if(count($wrong)>0) {
+      throw new \Exception(
+        "Found invalid DSN: "
+        .implode(', ',$wrong)
+        .". Valids: "
+        .implode(', ',array_keys($iniContents))
+      );
+    }
     $iniContents = array_intersect_key($iniContents,array_flip($dsn));
 
     # $dsn = 'MarketflowAcc';
