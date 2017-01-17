@@ -8,6 +8,10 @@ class FactoryRealTest extends\PHPUnit_Framework_TestCase
   static public $repo;
 
   static public function setUpBeforeClass() {
+    if(!getenv('DBDIFF_GRAPI_HOST')) {
+      self::markTestSkipped("Please define env var DBDIFF_GRAPI_HOST");
+    }
+
     // import a fake table yml file
     $factory = new \PdoGit\Factory();
     self::$repo = $factory->repo();
