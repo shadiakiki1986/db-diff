@@ -10,6 +10,10 @@ Does it in 3 steps
 
 Running periodic exports gives more points in time to `diff` against
 
+Similar tools
+* http://www.red-gate.com/products/sql-development/sql-source-control/
+* http://www.gitsql.net/
+
 ## Usage
 
 Synopsis
@@ -40,6 +44,9 @@ Reset:
 ```bash
 ./bin/pdo-git admin git:deleteAll
 ```
+
+Also check [ffa-db-diff](https://github.com/shadiakiki1986/ffa-db-diff/)
+
 ## Testing
 1. Set up a mysql database to test against locally:
 

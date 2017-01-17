@@ -4,7 +4,7 @@ namespace PdoGit\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputOption;
 
 // get diff and send result by email (this is parallel to the UI)
 class PostCommit extends MyCommand {
@@ -23,20 +23,43 @@ class PostCommit extends MyCommand {
           ->setHelp("Email a user with the diff of a table between two dates")
       ;
       parent::configure();
+      $this->addOption(
+        'format',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'format output: console, json, html',
+        'console'
+      );
+      $this->addOption(
+        'columns',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'columns file: path/to/file.yml'
+      );
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $ddo = $this->factory->deepDiff($input->getArgument('dsn'),$input->getArgument('table'));
+      $ddo = $this->factory->deepDiff(
+        $input->getArgument('dsn'),
+        $input->getArgument('table'),
+        $input->getOption('columns')
+      );
 
-      var_dump($ddo->split('A'));
-
-      var_dump($ddo->html());
-
-      if(false) {
-        $table = new Table($output);
-        $table->setRows($ddo->split('A'));
-        $table->render();
+      switch($input->getOption('format')) {
+        case 'json':
+          $output->writeLn(json_encode($ddo->differences,JSON_PRETTY_PRINT));
+          //$output->writeLn(json_encode($ddo->edited,JSON_PRETTY_PRINT));
+          break;
+        case 'html':
+          var_dump($ddo->html());
+          break;
+        case 'console':
+          $ddo->console($output);
+          break;
+        default:
+          throw new \Exception("Invalid format: ".$input->getOption('format'));
       }
     }
 

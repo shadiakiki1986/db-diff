@@ -1,15 +1,17 @@
 <table>
   <caption>New</caption>
-  <tr>
-    <th>Security</th>
-    <th>Name</th>
-    <th>Provider code</th>
-  </tr>
-  {% for dif in new %}
-  <tr>
-    {% for field in dif %}
-    <td>{{field}}</td>
-    {% endfor %}
-  </tr>
+  {% for key,dif in new %}
+    {% if key==0 %}
+      <tr>
+        {% for field in dif|keys %}
+        <th>{{field}}</th>
+        {% endfor %}
+      </tr>
+    {% endif %}
+    <tr>
+      {% for field in dif %}
+      <td>{{field}}</td>
+      {% endfor %}
+    </tr>
   {% endfor %}
 </table>

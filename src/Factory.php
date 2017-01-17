@@ -20,6 +20,8 @@ class Factory {
     if(!$repo) {
       // if first usage
       $repo = $git->init($GIT_NAME);
+      $repo->putConfig('user.email','shadiakiki1986@gmail.com');
+      $repo->putConfig('user.name','Shadi Akiki');
     }
     return $repo;
   }
@@ -48,7 +50,8 @@ class Factory {
     }
   }
 
-  public function deepDiff(string $dsn, string $table) {
+  // columnsYml - path to yml file defining which columns are to be shown for NEW and which for DELETED
+  public function deepDiff(string $dsn, string $table, string $columnsYml=null) {
     $repo = $this->repo();
     $ge = new DeepDiffFactory($repo,$dsn,$table);
 
@@ -68,8 +71,23 @@ class Factory {
     // get diff
     $differences = $ge->diff($sha1);
 
+    // get columns identifier
+    $colsNew = null;
+    $colsDel = null;
+    if(!is_null($columnsYml)) {
+      $cg = new Columns($columnsYml);
+      $cg->read();
+      $colsNew = $cg->getNew();
+      $colsDel = $cg->getDel();
+    }
+
     return new DeepDiffObject(
       $differences,
+      //$ge->split($differences,['A','N']),
+      $ge->split($differences,'N',$colsNew),
+      //$ge->split($differences,['A','D']),
+      $ge->split($differences,'D',$colsDel),
+      $ge->split($differences,'E'),
       $commits[$sha1]['commitDate'],
       $today
     );

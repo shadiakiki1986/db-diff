@@ -1,0 +1,23 @@
+
+[
+    {
+        "kind": "N",
+        "path": [
+            "1"
+        ],
+        "rhs": {
+            "TIT_COD": "1",
+            "TIT_NOM": "CASINO DU LIBAN FRN LIBOR + 4.5%"
+        }
+    },
+    {
+        "kind": "N",
+        "path": [
+            "03\/12\/98"
+        ],
+        "rhs": {
+            "TIT_COD": "03\/12\/98",
+            "TIT_NOM": "TBILLS 03\/12\/98"
+        }
+    }
+]

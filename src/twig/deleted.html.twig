@@ -1,13 +1,17 @@
 <table>
-  <caption>New</caption>
-  <tr>
-    <th>Security</th>
-    <th>Name</th>
-  </tr>
-  {% foreach deleted as dif %}
-  <tr>
-    <td>dif.path[0]</td>
-    <td>dif.lhs['name']</td>
-  </tr>
-  {% endforeach %}
+  <caption>Deleted</caption>
+  {% for key,dif in deleted %}
+    {% if key==0 %}
+      <tr>
+        {% for field in dif|keys %}
+        <th>{{field}}</th>
+        {% endfor %}
+      </tr>
+    {% endif %}
+    <tr>
+      {% for field in dif %}
+      <td>{{field}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
 </table>

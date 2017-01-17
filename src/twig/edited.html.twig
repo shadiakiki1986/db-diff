@@ -1,17 +1,17 @@
 <table>
   <caption>Edited</caption>
   <tr>
-    <th>Security</th>
+    <th>ID</th>
     <th>Field</th>
     <th>Old</th>
     <th>New</th>
   </tr>
-  {% foreach edited as diff %}
+  {% for dif in edited %}
   <tr>
-    <td>dif.path[0]</td>
-    <td>dif.path[1]</td>
-    <td>dif.lhs</td>
-    <td>dif.rhs</td>
+    <td>{{dif.path[0]}}</td>
+    <td>{{dif.path[1]}}</td>
+    <td>{{dif.lhs}}</td>
+    <td>{{dif.rhs}}</td>
   </tr>
-  {% endforeach %}
+  {% endfor %}
 </table>
