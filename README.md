@@ -17,37 +17,31 @@ Similar tools (didn't try them)
 * [PM-Connect/db-diff](https://github.com/PM-Connect/db-diff): diff of two database structures
 
 ## Usage
+(Example usage: [ffa-db-diff](https://github.com/shadiakiki1986/ffa-db-diff/) )
 
-Synopsis
-```bash
-./bin/pdo-git export [--init] <DSN> <DB>..<TABLE>
-./bin/pdo-git post-commit --format [html,console,json] -- <DSN> <DB>..<TABLE>
-```
+1. Requirements:
+  1. a ready PDO-ODBC connection
+  2. a `node-git-rest-api` server with `deep-diff-yml` configured for yml files
 
-Set env var for `git-rest-api` server
+2. Set env var for `git-rest-api` server
 
 ```bash
 export DBDIFF_GRAPI_HOST=http://localhost:8082
 ```
 
-Against mysql odbc entry
+3. Synopsis
+
 ```bash
-./bin/pdo-git export MarketflowAcc mf.t1
-./bin/pdo-git post-commit MarketflowAcc mf.t1
+./bin/pdo-git export [--init] <DSN> <DB>..<TABLE>
+./bin/pdo-git post-commit --format [html,console,json] -- <DSN> <DB>..<TABLE>
 ```
 
-Against SQL server odbc entry
-```bash
-./bin/pdo-git export MarketflowAcc Marketflow..t1
-./bin/pdo-git post-commit MarketflowAcc Marketflow..t1
-```
+Note: the `<DB>..<TABLE>` notation is SQLServer-specific. For MySql, use `<DB>.<TABLE>` (single dot)
 
 Reset:
 ```bash
 ./bin/pdo-git admin git:deleteAll
 ```
-
-Also check [ffa-db-diff](https://github.com/shadiakiki1986/ffa-db-diff/)
 
 ## Testing
 1. Set up a mysql database to test against locally:
@@ -78,7 +72,7 @@ docker-compose up git
 ```
 3. Set up dev env using option 1 or 2 below
 4. Install dependencies: `composer install`
-4. Run tests in `exporter`: `composer test`
+5. Run tests in `exporter`: `composer test`
 
 ### Option 1: Dev env with vagrant
 ```bash
