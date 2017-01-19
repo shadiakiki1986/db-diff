@@ -10,3 +10,9 @@ new:
 deleted:
 - TIT_COD
 - TIT_NOM
+editedIgnored:
+- TIT_UPD_LAST_DATE
+- TIT_UPD_LOGIN
+- TIT_UPD_ACTION
+- TIT_TREATED_ONLINE
+- TIT_OCCUPE

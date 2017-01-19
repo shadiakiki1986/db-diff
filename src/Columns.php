@@ -14,9 +14,16 @@ class Columns {
 
   public function read() {
     $this->data = \yaml_parse_file($this->filename);
+    if(!$this->data) {
+      throw new \Exception("Failed to read yaml file: ".$this->filename);
+    }
   }
 
   private function newOrDel(string $title) {
+    if(!$this->data) {
+      throw new \Exception("Read failed or forgotten: ".$this->filename);
+    }
+
     if(!array_key_exists($title,$this->data)) {
       throw new \Exception("Columns YML file '".$this->filename."' is missing field ".$title);
     }
@@ -40,4 +47,7 @@ class Columns {
     return $this->newOrDel('deleted');
   }
 
+  public function getEditedIgnored() {
+    return $this->newOrDel('editedIgnored');
+  }
 }
