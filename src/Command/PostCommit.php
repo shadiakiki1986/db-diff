@@ -84,7 +84,7 @@ class PostCommit extends MyCommand {
           $ddo->console($output);
           break;
         case 'email':
-          $emailer = new Emailer($input->getOption('email.config'));
+          $emailer = new \PdoGit\Emailer($input->getOption('email.config'));
           $emailer->readConfig();
           $emailer->send(
             $emailTo,
