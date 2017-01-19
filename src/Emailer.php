@@ -16,7 +16,7 @@ class Emailer {
       $this->configAr = \yaml_parse_file($this->configFn);
     }
 
-    public function send(string $to, string $subject, string $body) {
+    public function send(array $to, string $subject, string $body) {
       return \SwiftmailerWrapper\Utils::mail_attachment(
         [],
         $to,
