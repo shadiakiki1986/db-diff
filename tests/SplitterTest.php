@@ -5,7 +5,7 @@ namespace PdoGit;
 class SplitterTest extends\PHPUnit_Framework_TestCase 
 {
 
-  static public $ROOT = __DIR__.'/data/Splitter';
+  static public $ROOT = __DIR__.'/data/SplitterTest';
 
   /**
    * @dataProvider testSplitProvider

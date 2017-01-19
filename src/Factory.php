@@ -81,7 +81,7 @@ class Factory {
     $differences = $ge->diff($sha1);
 
     // get columns identifier
-    $cg = null
+    $cg = null;
     if(!is_null($columnsYml)) {
       $cg = new Columns($differences,$columnsYml);
       $cg->read();
