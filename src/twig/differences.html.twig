@@ -1,20 +1,25 @@
-Diff TITRE {{d1}} .. {{d2}}
-
-{% if edited %}
-  {% include 'edited.html.twig' %}
-{% else %}
-  No edited securities
-{% endif %}
-
-{% if new %}
-  {% include 'new.html.twig' %}
-{% else %}
-  No new securities
-{% endif %}
-
-{% if deleted %}
-  {% include 'deleted.html.twig' %}
-{% else %}
-  No deleted securities
-{% endif %}
-
+<h2>Diff TITRE {{d1}} .. {{d2}}</h2>
+<br/>
+<div>
+  {% if edited %}
+    {% include 'edited.html.twig' %}
+  {% else %}
+    No edited securities
+  {% endif %}
+</div>
+<br/>
+<div>
+  {% if new %}
+    {% include 'new.html.twig' %}
+  {% else %}
+    No new securities
+  {% endif %}
+</div>
+<br/>
+<div>
+  {% if deleted %}
+    {% include 'deleted.html.twig' %}
+  {% else %}
+    No deleted securities
+  {% endif %}
+</div>
