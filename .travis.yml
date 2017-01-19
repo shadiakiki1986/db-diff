@@ -8,4 +8,4 @@ install:
 script: composer test
 branches:
   only:
-    - pass_travis
+  - master
