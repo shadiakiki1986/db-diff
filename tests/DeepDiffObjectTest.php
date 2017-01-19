@@ -5,7 +5,7 @@ namespace PdoGit;
 class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase 
 {
 
-  static public $ROOT_F = __DIR__.'/data/DeepDiffFactoryTest';
+  static public $ROOT_F = __DIR__.'/data/SplitterTest';
   static public $ROOT_O = __DIR__.'/data/DeepDiffObjectTest';
 
   /**
@@ -30,8 +30,13 @@ class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase
   }
 
   private function jsonGetRootf(string $val) {
+    $fn = self::$ROOT_F.'/'.$val;
+    if(!file_exists($fn)) {
+      throw new \Exception("File inexistant: ".$fn);
+    }
+
     return json_decode(
-      file_get_contents(self::$ROOT_F.'/'.$val),
+      file_get_contents($fn),
       true
     );
   }
@@ -41,17 +46,17 @@ class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase
       [
         [],
         [],
-        $this->jsonGetRootf('split_edited_expected.json'),
+        $this->jsonGetRootf('splitColsNull_edited_expected.json'),
         self::$ROOT_O.'/html_edited.html'
       ],
       [
         [],
-        $this->jsonGetRootf('split_deleted_expected.json'),
+        $this->jsonGetRootf('splitColsNull_deleted_expected.json'),
         [],
         self::$ROOT_O.'/html_deleted.html'
       ],
       [
-        $this->jsonGetRootf('split_new_expected.json'),
+        $this->jsonGetRootf('splitColsNull_new_expected.json'),
         [],
         [],
         self::$ROOT_O.'/html_new.html'

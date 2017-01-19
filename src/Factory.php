@@ -81,22 +81,23 @@ class Factory {
     $differences = $ge->diff($sha1);
 
     // get columns identifier
-    $colsNew = null;
-    $colsDel = null;
+    $cg = null;
     if(!is_null($columnsYml)) {
       $cg = new Columns($columnsYml);
       $cg->read();
-      $colsNew = $cg->getNew();
-      $colsDel = $cg->getDel();
     }
+
+    // preprocess
+    $splitter = new Splitter($differences,$cg);
 
     return new DeepDiffObject(
       $differences,
       //$ge->split($differences,['A','N']),
-      $ge->split($differences,'N',$colsNew),
       //$ge->split($differences,['A','D']),
-      $ge->split($differences,'D',$colsDel),
-      $ge->split($differences,'E'),
+
+      $splitter->split('N'),
+      $splitter->split('D'),
+      $splitter->split('E'),
       $commits[$sha1]['commitDate'],
       $today
     );
