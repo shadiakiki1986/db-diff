@@ -27,7 +27,7 @@ class PostCommit extends MyCommand {
         'format',
         '',
         InputOption::VALUE_REQUIRED,
-        'format output: console, json, html',
+        'format output: console, json, html, email',
         'console'
       );
       $this->addOption(
@@ -36,11 +36,36 @@ class PostCommit extends MyCommand {
         InputOption::VALUE_REQUIRED,
         'columns file: path/to/file.yml'
       );
+      $this->addOption(
+        'email.to',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'comma-separated list of emails to send to'
+      );
+      $this->addOption(
+        'email.config',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'config yml file with array for swiftmailer-wrapper .. check sample .. https://github.com/shadiakiki1986/swiftmailer-wrapper'
+      );
 
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+      $emailTo = null;
+      $emailConfig = null;
+      if($input->getOption('format')=='email') {
+        if(!$input->getOption('email.to')) {
+          throw new \Exception("Format=email but not email.to provided");
+        }
+        $emailTo = explode(',',$input->getOption('email.to'));
+
+        if(!$input->getOption('email.config')) {
+          throw new \Exception("Format=email but not email.config provided");
+        }
+      }
+
       $ddo = $this->factory->deepDiff(
         $input->getArgument('dsn'),
         $input->getArgument('table'),
@@ -57,6 +82,15 @@ class PostCommit extends MyCommand {
           break;
         case 'console':
           $ddo->console($output);
+          break;
+        case 'email':
+          $emailer = new Emailer($input->getOption('email.config'));
+          $emailer->readConfig();
+          $emailer->send(
+            $emailTo,
+            'Diff securities',
+            $ddo->html()
+          );
           break;
         default:
           throw new \Exception("Invalid format: ".$input->getOption('format'));

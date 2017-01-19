@@ -1,0 +1,11 @@
+# matches with example in Usage on
+# https://github.com/shadiakiki1986/swiftmailer-wrapper
+from:
+  email: from@email.com
+  name: From Name
+reply: foo@bar.com
+config:
+  host: smtp.server.com
+  port: 123
+  username: myUser
+  password: pizza
