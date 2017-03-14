@@ -17,7 +17,7 @@ Similar tools (didn't try them)
 * [PM-Connect/db-diff](https://github.com/PM-Connect/db-diff): diff of two database structures
 
 ## Usage
-(Example usage: [ffa-db-diff](https://github.com/shadiakiki1986/ffa-db-diff/) )
+(Example usage: [docker-db-diff](https://github.com/shadiakiki1986/docker-db-diff/) )
 
 1. Requirements:
   1. [PDO-ODBC](http://php.net/manual/en/ref.pdo-odbc.php) driver and a ready connection
