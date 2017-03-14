@@ -29,10 +29,12 @@ class PostCommitMockedTest extends\PHPUnit_Framework_TestCase
     $command = $application->find('post-commit');
     $commandTester = new CommandTester($command);
     $commandTester->execute(array(
-        'command' => $command->getName(),
-            'dsn' => 'test',
-          'table' => 'test',
-      '--columns' => __DIR__.'/../../src/columns/ffa-titre.yml'
+              'command' => $command->getName(),
+                  'dsn' => 'test',
+                'table' => 'test',
+            '--columns' => __DIR__.'/../../src/columns/ffa-titre.yml',
+           '--email.to' => 'shadiakiki1986@gmail.com',
+      '--email.subject' => 'some random email'
     ));
 
     // the output of the command in the console

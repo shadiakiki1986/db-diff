@@ -48,6 +48,13 @@ class PostCommit extends MyCommand {
         InputOption::VALUE_REQUIRED,
         'config yml file with array for swiftmailer-wrapper .. check sample .. https://github.com/shadiakiki1986/swiftmailer-wrapper'
       );
+      $this->addOption(
+        'email.subject',
+        '',
+        InputOption::VALUE_REQUIRED,
+        'subject to use in email',
+        'db-diff'
+      );
 
     }
 
@@ -63,6 +70,10 @@ class PostCommit extends MyCommand {
 
         if(!$input->getOption('email.config')) {
           throw new \Exception("Format=email but not email.config provided");
+        }
+
+        if(!$input->getOption('email.subject')) {
+          throw new \Exception("Format=email but not email.subject provided");
         }
       }
 
@@ -88,7 +99,7 @@ class PostCommit extends MyCommand {
           $emailer->readConfig();
           $emailer->send(
             $emailTo,
-            'Diff securities',
+            $input->getOption('email.subject'),
             $ddo->html()
           );
           break;
