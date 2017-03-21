@@ -37,12 +37,6 @@ class PostCommit extends MyCommand {
         'columns file: path/to/file.yml'
       );
       $this->addOption(
-        'email.to',
-        '',
-        InputOption::VALUE_REQUIRED,
-        'comma-separated list of emails to send to'
-      );
-      $this->addOption(
         'email.config',
         '',
         InputOption::VALUE_REQUIRED,
@@ -60,14 +54,7 @@ class PostCommit extends MyCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $emailTo = null;
-      $emailConfig = null;
       if($input->getOption('format')=='email') {
-        if(!$input->getOption('email.to')) {
-          throw new \Exception("Format=email but not email.to provided");
-        }
-        $emailTo = explode(',',$input->getOption('email.to'));
-
         if(!$input->getOption('email.config')) {
           throw new \Exception("Format=email but not email.config provided");
         }
@@ -98,7 +85,6 @@ class PostCommit extends MyCommand {
           $emailer = new \PdoGit\Emailer($input->getOption('email.config'));
           $emailer->readConfig();
           $emailer->send(
-            $emailTo,
             $input->getOption('email.subject'),
             $ddo->html()
           );

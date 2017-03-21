@@ -13,13 +13,27 @@ class Emailer {
 
     public function readConfig()
     {
-      $this->configAr = \yaml_parse_file($this->configFn);
+      $conf = \yaml_parse_file($this->configFn);
+      $should_be_arrays = ['to','config','from'];
+      foreach($should_be_arrays as $sba) {
+        if(!is_array($conf[$sba])) {
+          throw new \Exception(
+            sprintf(
+              "Config '%s' invalid field '%s': should be array",
+              $this->configFn,
+              $sba
+            )
+          );
+        }
+      }
+
+      $this->configAr = $conf;
     }
 
-    public function send(array $to, string $subject, string $body) {
+    public function send(string $subject, string $body) {
       return \SwiftmailerWrapper\Utils::mail_attachment(
         [],
-        $to,
+        $this->configAr['to'],
         $this->configAr['from']['email'],
         $this->configAr['from']['name'],
         $this->configAr['reply'],

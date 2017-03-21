@@ -33,12 +33,13 @@ class PostCommitMockedTest extends\PHPUnit_Framework_TestCase
                   'dsn' => 'test',
                 'table' => 'test',
             '--columns' => __DIR__.'/../../src/columns/ffa-titre.yml',
-           '--email.to' => 'shadiakiki1986@gmail.com',
+       '--email.config' => __DIR__.'/../../src/swiftmailer/sample.yml',
       '--email.subject' => 'some random email'
     ));
 
     // the output of the command in the console
-    //$output = $commandTester->getDisplay();
+    $output = $commandTester->getDisplay();
+    var_dump($output);
     //$this->assertContains('Username: Wouter', $output);
   }
 

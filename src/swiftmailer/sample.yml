@@ -9,3 +9,7 @@ config:
   port: 123
   username: myUser
   password: pizza
+to:
+- to1@email.com
+- to2@email.com
+- to3@email.com
