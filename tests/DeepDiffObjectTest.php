@@ -22,9 +22,21 @@ class DeepDiffObjectTest extends\PHPUnit_Framework_TestCase
     );
     $actual = $ge->html();
     // file_put_contents($expected,$actual);
-    $this->assertEquals(
-      file_get_contents($expected),
-      $actual,
+
+    // Drop spaces
+    // http://stackoverflow.com/a/7172153/4126114
+    $expectedDom = new \DomDocument();
+    $expectedDom->loadHTMLFile($expected);
+    $expectedDom->preserveWhiteSpace = false;
+
+    $actualDom = new \DomDocument();
+    $actualDom->loadHTML($actual);
+    $actualDom->preserveWhiteSpace = false;
+
+    // assert equal
+    $this->assertXmlStringEqualsXmlString(
+      $expectedDom->saveHTML(),
+      $actualDom->saveHTML(),
       $expected
     );
   }

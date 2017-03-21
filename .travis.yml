@@ -6,6 +6,3 @@ before_install:
 install:
 - composer install
 script: composer test
-branches:
-  only:
-  - master

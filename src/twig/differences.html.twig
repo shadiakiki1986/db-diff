@@ -1,3 +1,5 @@
+<html>
+<body>
 <h2>New securities daily: {{d1}} .. {{d2}}</h2>
 
 <ul>
@@ -6,9 +8,8 @@
     <div>
       {% if new %}
         {% include 'new.html.twig' %}
-      {% else %}
-        No new securities
-      {% endif %}
+      {% else %}No new securities
+{% endif %}
     </div>
   </li>
   <li>
@@ -16,9 +17,8 @@
     <div>
       {% if deleted %}
         {% include 'deleted.html.twig' %}
-      {% else %}
-        No deleted securities
-      {% endif %}
+      {% else %}No deleted securities
+{% endif %}
     </div>
   </li>
   <li>
@@ -26,9 +26,10 @@
     <div>
       {% if edited %}
         {% include 'edited.html.twig' %}
-      {% else %}
-        No edited securities
-      {% endif %}
+      {% else %}No edited securities
+{% endif %}
     </div>
   </li>
 </ul>
+</body>
+</html>
