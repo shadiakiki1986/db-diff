@@ -1,10 +1,10 @@
 # db-diff [![Build Status](https://travis-ci.org/shadiakiki1986/db-diff.svg?branch=master)](https://travis-ci.org/shadiakiki1986/db-diff)
-CLI to version control database tables and show their daily diff
+Console application to version control database table contents and show their daily diff
 
 Does it in 3 steps
 
 1. Set up PHP-ODBC connections and store your database connection in `/etc/odbc.ini`
-2. export table from database via ODBC connection to git via `git-rest-api` server
+2. export table from database via ODBC connection to git via [git-rest-api](https://github.com/korya/node-git-rest-api/) server
 3. export table again after edits
 4. get `git diff` results
 
@@ -21,7 +21,7 @@ Similar tools (didn't try them)
 
 1. Requirements:
   1. [PDO-ODBC](http://php.net/manual/en/ref.pdo-odbc.php) driver and a ready connection
-  2. a `node-git-rest-api` server with `deep-diff-yml` configured for yml files
+  2. a [node-git-rest-api](https://github.com/korya/node-git-rest-api/) server with `deep-diff-yml` configured for yml files
 
 2. Set env var for `git-rest-api` server
 
@@ -44,7 +44,7 @@ Reset:
 ```
 
 ## Testing
-1. Set up a mysql database to test against locally:
+1. (optional) Set up a mysql database to test against locally:
 
 ```bash
 docker run \
@@ -65,14 +65,14 @@ mysql --host 127.0.0.1 --user user --password
 > select * from t1
 ```
 
-2. Run the `git-rest-api` server locally:
+2. (optional) Run the `git-rest-api` server locally:
 
 ```bash
 docker-compose up git
 ```
-3. Set up dev env using option 1 or 2 below
+3. (optional) Set up dev env using option 1 or 2 below
 4. Install dependencies: `composer install`
-5. Run tests in `exporter`: `composer test`
+5. Run tests: `composer test`
 
 ### Option 1: Dev env with vagrant
 ```bash
